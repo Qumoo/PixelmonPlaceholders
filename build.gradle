@@ -50,10 +50,17 @@ repositories {
     maven {
         url 'https://jitpack.io'
     }
+    ivy {
+        url "https://download.nodecdn.net/containers/reforged/server/release"
+        layout "pattern", {
+            artifact "[revision]/[artifact].[ext]"
+        }
+    }
 }
 
 dependencies {
     compile 'org.spongepowered:spongeapi:7.1.0-SNAPSHOT'
+    compile ":Pixelmon-1.12.2-8.2.0-server:8.2.0"
     compile 'com.github.rojo8399:PlaceholderAPI:4.5.1'
 }
 

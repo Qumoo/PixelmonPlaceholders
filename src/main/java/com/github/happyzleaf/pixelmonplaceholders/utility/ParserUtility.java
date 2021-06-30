@@ -122,9 +122,9 @@ public class ParserUtility {
 			case "postevolutions":
 				return asReadableList(values, 1, stats.evolutions.stream().map(evolution -> getPokemonName(evolution.to.name)).toArray());
 			case "preevolutions":
-				return asReadableList(values, 1, Arrays.stream(stats.preEvolutions).map(EnumSpecies::getPokemonName).toArray());
+				return asReadableList(values, 1, Arrays.stream(stats.preEvolutions).map(s -> EnumSpecies.getFromNameAnyCaseNoTranslate(s).getPokemonName()).toArray());
 			case "evolutions": {
-				List<String> evolutions = new ArrayList<>(Arrays.stream(stats.preEvolutions).map(EnumSpecies::getPokemonName).collect(Collectors.toList()));
+				List<String> evolutions = Arrays.stream(stats.preEvolutions).map(s -> EnumSpecies.getFromNameAnyCaseNoTranslate(s).getPokemonName()).collect(Collectors.toList());
 				evolutions.add(species.getLocalizedName());
 				evolutions.addAll(stats.evolutions.stream().map(evolution -> getPokemonName(evolution.to.name)).collect(Collectors.toList()));
 				return asReadableList(values, 1, evolutions.toArray());
@@ -334,6 +334,8 @@ public class ParserUtility {
 					return formatBigNumbers(pokemon.getExperience());
 				case "level":
 					return pokemon.getLevel();
+				case "dynalvl":
+					return pokemon.getDynamaxLevel();
 				case "exptolevelup":
 					return formatBigNumbers(pokemon.getExperienceToLevelUp());
 				case "stats":
